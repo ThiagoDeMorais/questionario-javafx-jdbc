@@ -14,13 +14,13 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Registro">
                   <items>
-                    <MenuItem fx:id="menuItemAlternativa" mnemonicParsing="false" onAction="#onMenuItemAlternativaAction" text="Alternativa" />
-                        <MenuItem fx:id="menuItemPergunta" mnemonicParsing="false" onAction="#onMenuItemPerguntaAction" text="Pergunta" />
+                    <MenuItem fx:id="menuItemAlternative" mnemonicParsing="false" onAction="#onMenuItemAlternativeAction" text="Alternativa" />
+                        <MenuItem fx:id="menuItemQuestion" mnemonicParsing="false" onAction="#onMenuItemQuestionAction" text="Pergunta" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ajuda">
                   <items>
-                    <MenuItem fx:id="menuItemSobre" mnemonicParsing="false" onAction="#onMenuItemSobreAction" text="Sobre" />
+                    <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#onMenuItemAboutAction" text="Sobre" />
                   </items>
                 </Menu>
               </menus>
