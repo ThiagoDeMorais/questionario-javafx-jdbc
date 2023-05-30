@@ -71,7 +71,7 @@ public class QuestionFormController implements Initializable {
 			entity = getFormData();
 			service.saveOrUpdate(entity);
 			notifyDataChangeListeners();
-			Utils.curretStage(event).close();
+			Utils.currentStage(event).close();
 		}catch(DbException e) {
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
@@ -109,7 +109,7 @@ public class QuestionFormController implements Initializable {
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
 		System.out.println("onBtCancelction");
-		Utils.curretStage(event).close();
+		Utils.currentStage(event).close();
 	}
 
 
