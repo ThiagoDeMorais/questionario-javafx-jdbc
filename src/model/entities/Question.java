@@ -13,6 +13,7 @@ public class Question implements Serializable {
 		
 	}
 	
+	
 	public Question(Integer id, String description) {
 		this.id = id;
 		this.description = description;

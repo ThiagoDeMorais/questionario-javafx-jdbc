@@ -46,7 +46,8 @@ public class QuestionListController implements Initializable {
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.curretStage(event);
-		createDialogForm("/gui/QuestionForm.fxml", parentStage);
+		Question obj = new Question();
+		createDialogForm(obj,"/gui/QuestionForm.fxml", parentStage);
 	}
 
 	public void setQuestionService(QuestionService service) {
@@ -76,10 +77,14 @@ public class QuestionListController implements Initializable {
 		tableViewQuestion.setItems(obsList);
 	}
 
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Question obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			QuestionFormController controller = loader.getController();
+			controller.setQuestion(obj);
+			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Entre com o enunciado da questão");

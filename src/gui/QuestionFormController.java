@@ -9,8 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Question;
 
 public class QuestionFormController implements Initializable {
+	
+	private Question entity;
 	
 	@FXML
 	private TextField txtId;
@@ -26,6 +29,11 @@ public class QuestionFormController implements Initializable {
 	
 	@FXML
 	private Button btCancel;
+	
+	public void setQuestion(Question entity) {
+		this.entity = entity;
+	}
+	
 	
 	@FXML
 	public void onBtSaveAction() {
@@ -48,6 +56,14 @@ public class QuestionFormController implements Initializable {
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtDescription, 5000);
 
+	}
+	
+	public void updateFormData() {
+		if(entity == null) {
+			throw new IllegalStateException("Entity was null");
+		}
+		txtId.setText(String.valueOf(entity.getId() == null?" ":entity.getId()));
+		txtDescription.setText(entity.getDescription());
 	}
 
 }
