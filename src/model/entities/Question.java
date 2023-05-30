@@ -35,7 +35,7 @@ public class Question implements Serializable {
 		return description;
 	}
 
-	public void setEnunciado(String description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 

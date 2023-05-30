@@ -84,6 +84,7 @@ public class QuestionListController implements Initializable {
 			
 			QuestionFormController controller = loader.getController();
 			controller.setQuestion(obj);
+			controller.setQuestionService(new QuestionService());
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();

@@ -134,7 +134,7 @@ public class AlternativeDaoJDBC implements AlternativeDao {
 	private Question instantiateQuestion(ResultSet rs) throws SQLException {
 		Question per = new Question();
 		per.setId(rs.getInt("id_question"));
-		per.setEnunciado(rs.getString("description"));
+		per.setDescription(rs.getString("description"));
 		return per;
 	}
 

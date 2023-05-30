@@ -114,7 +114,7 @@ public class QuestionDaoJDBC implements QuestionDao {
 	private Question instantiateQuestion(ResultSet rs) throws SQLException {
 		Question per = new Question();
 		per.setId(rs.getInt("id"));
-		per.setEnunciado(rs.getString("description"));
+		per.setDescription(rs.getString("description"));
 		return per;
 	}
 	
