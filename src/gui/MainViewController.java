@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.servicies.AlternativeService;
 import model.servicies.QuestionService;
 
 public class MainViewController implements Initializable {
@@ -31,7 +32,10 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onMenuItemAlternativeAction() {
-		System.out.println("menuItemAlternative");
+		loadView("/gui/AlternativeList.fxml", (AlternativeListController controller) -> {
+			controller.setAlternativeService(new AlternativeService());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML
@@ -44,7 +48,8 @@ public class MainViewController implements Initializable {
 	}
 
 	public void onMenuItemAboutAction() {
-		loadView("/gui/About.fxml", x ->{});
+		loadView("/gui/About.fxml", x -> {
+		});
 	}
 
 	@Override
@@ -65,7 +70,7 @@ public class MainViewController implements Initializable {
 			mainVBox.getChildren().clear();
 			mainVBox.getChildren().add(mainMenu);
 			mainVBox.getChildren().addAll(newVBox.getChildren());
-			
+
 			T controller = loader.getController();
 			initializingAction.accept(controller);
 
@@ -73,5 +78,5 @@ public class MainViewController implements Initializable {
 			Alerts.showAlert("IO Exception", "Error Loading view", e.getMessage(), AlertType.ERROR);
 		}
 	}
-	
+
 }

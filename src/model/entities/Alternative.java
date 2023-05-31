@@ -15,8 +15,8 @@ public class Alternative implements Serializable{
 		
 	}
 
-	public Alternative(String decription, boolean isCorrect, Question question) {
-		this.description = decription;
+	public Alternative(String description, boolean isCorrect, Question question) {
+		this.description = description;
 		this.isCorrect = isCorrect;
 		this.question = question;
 	}
@@ -29,12 +29,12 @@ public class Alternative implements Serializable{
 		this.id = id;
 	}
 
-	public String getDecription() {
+	public String getDescription() {
 		return description;
 	}
 
-	public void setDecription(String decription) {
-		this.description = decription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Boolean getIsCorrect() {

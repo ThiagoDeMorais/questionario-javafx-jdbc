@@ -34,7 +34,7 @@ public class AlternativeDaoJDBC implements AlternativeDao {
 					Statement.RETURN_GENERATED_KEYS);
 			
 			st.setInt(1, obj.getQuestion().getId());
-			st.setString(2, obj.getDecription());
+			st.setString(2, obj.getDescription());
 			st.setString(3, obj.getIsCorrect() == true ? "V":"F");
 			
 			int rowsAffected = st.executeUpdate();
@@ -67,7 +67,7 @@ public class AlternativeDaoJDBC implements AlternativeDao {
 					Statement.RETURN_GENERATED_KEYS);
 			
 			st.setInt(1, obj.getQuestion().getId());
-			st.setString(2, obj.getDecription());
+			st.setString(2, obj.getDescription());
 			st.setString(3, obj.getIsCorrect() == true ? "V":"F");
 			st.setInt(4, obj.getId());
 			
@@ -125,7 +125,7 @@ public class AlternativeDaoJDBC implements AlternativeDao {
 	private Alternative instantiateAlternative(ResultSet rs, Question per) throws SQLException {
 		Alternative obj = new Alternative();
 		obj.setId(rs.getInt("id"));
-		obj.setDecription(rs.getString("description"));
+		obj.setDescription(rs.getString("description"));
 		obj.setIsCorrect(rs.getString("isCorrect") == "V" ? true : false);
 		obj.setQuestion(per);
 		return obj;
