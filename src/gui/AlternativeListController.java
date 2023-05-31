@@ -31,6 +31,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Alternative;
 import model.servicies.AlternativeService;
+import model.servicies.QuestionService;
 
 public class AlternativeListController implements Initializable, DataChangeListener {
 	private AlternativeService service;
@@ -103,7 +104,8 @@ public class AlternativeListController implements Initializable, DataChangeListe
 
 			AlternativeFormController controller = loader.getController();
 			controller.setAlternative(obj);
-			controller.setAlternativeService(new AlternativeService());
+			controller.setServices(new AlternativeService(), new QuestionService());
+			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
@@ -116,6 +118,7 @@ public class AlternativeListController implements Initializable, DataChangeListe
 			dialogStage.showAndWait();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
 	}
