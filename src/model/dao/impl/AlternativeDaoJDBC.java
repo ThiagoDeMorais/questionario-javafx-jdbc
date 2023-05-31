@@ -35,7 +35,7 @@ public class AlternativeDaoJDBC implements AlternativeDao {
 			
 			st.setInt(1, obj.getQuestion().getId());
 			st.setString(2, obj.getDescription());
-			st.setString(3, obj.getIsCorrect() == true ? "V":"F");
+			st.setString(3, obj.getIsCorrect());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -68,7 +68,7 @@ public class AlternativeDaoJDBC implements AlternativeDao {
 			
 			st.setInt(1, obj.getQuestion().getId());
 			st.setString(2, obj.getDescription());
-			st.setString(3, obj.getIsCorrect() == true ? "V":"F");
+			st.setString(3, obj.getIsCorrect());
 			st.setInt(4, obj.getId());
 			
 			st.executeUpdate();
@@ -126,7 +126,7 @@ public class AlternativeDaoJDBC implements AlternativeDao {
 		Alternative obj = new Alternative();
 		obj.setId(rs.getInt("id"));
 		obj.setDescription(rs.getString("description"));
-		obj.setIsCorrect(rs.getString("isCorrect") == "V" ? true : false);
+		obj.setIsCorrect(rs.getString("isCorrect"));
 		obj.setQuestion(per);
 		return obj;
 	}

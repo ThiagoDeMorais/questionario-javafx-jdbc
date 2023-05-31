@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="344.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AlternativeListController">
+<VBox prefHeight="412.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AlternativeListController">
    <children>
       <Label text="Registro de alternativas">
          <font>
@@ -28,8 +28,9 @@
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="id" />
           <TableColumn fx:id="tableColumnDescription" prefWidth="103.0" text="descricao" />
-            <TableColumn fx:id="tableColumnEDIT" prefWidth="75.0" />
-            <TableColumn fx:id="tableColumnREMOVE" prefWidth="75.0" />
+            <TableColumn fx:id="tableColumnIsCorrect" prefWidth="107.0" text="Correta?" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="78.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="105.0" />
         </columns>
       </TableView>
    </children>

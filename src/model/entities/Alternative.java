@@ -8,14 +8,14 @@ public class Alternative implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String description;
-	private Boolean isCorrect;
+	private String isCorrect;
 	private Question question;
 	
 	public Alternative() {
 		
 	}
 
-	public Alternative(String description, boolean isCorrect, Question question) {
+	public Alternative(String description, String isCorrect, Question question) {
 		this.description = description;
 		this.isCorrect = isCorrect;
 		this.question = question;
@@ -37,11 +37,11 @@ public class Alternative implements Serializable{
 		this.description = description;
 	}
 
-	public Boolean getIsCorrect() {
+	public String getIsCorrect() {
 		return isCorrect;
 	}
 
-	public void setIsCorrect(Boolean isCorrect) {
+	public void setIsCorrect(String isCorrect) {
 		this.isCorrect = isCorrect;
 	}
 
