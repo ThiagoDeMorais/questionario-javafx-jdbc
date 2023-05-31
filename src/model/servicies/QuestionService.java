@@ -21,4 +21,8 @@ public class QuestionService {
 			dao.update(obj);
 		}
 	}
+	
+	public void remove(Question obj) {
+		dao.deleteById(obj.getId());
+	}
 }
