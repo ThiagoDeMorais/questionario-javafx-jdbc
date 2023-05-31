@@ -19,15 +19,15 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.entities.Question;
+import model.entities.Alternative;
 import model.exceptions.ValidationException;
-import model.servicies.QuestionService;
+import model.servicies.AlternativeService;
 
-public class QuestionFormController implements Initializable {
+public class AlternativeFormController implements Initializable {
 	
-	private Question entity;
+	private Alternative entity;
 	
-	private QuestionService service;
+	private AlternativeService service;
 	
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
@@ -46,11 +46,11 @@ public class QuestionFormController implements Initializable {
 	@FXML
 	private Button btCancel;
 	
-	public void setQuestion(Question entity) {
+	public void setAlternative(Alternative entity) {
 		this.entity = entity;
 	}
 	
-	public void setQuestionService(QuestionService service) {
+	public void setAlternativeService(AlternativeService service) {
 		this.service = service;
 	}
 	
@@ -87,15 +87,15 @@ public class QuestionFormController implements Initializable {
 		}
 	}
 
-	private Question getFormData() {
-		Question obj = new Question();
+	private Alternative getFormData() {
+		Alternative obj = new Alternative();
 		
 		ValidationException exception = new ValidationException("Validation Error");
 		
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
 		
 		if(txtDescription.getText() == null || txtDescription.getText().trim().equals("")) {
-			exception.addErrors("pergunta", "O campo pergunta não pode ser vazio");
+			exception.addErrors("alternativa", "O campo alternativa não pode ser vazio");
 		}
 		obj.setDescription(txtDescription.getText());
 		
@@ -136,8 +136,8 @@ public class QuestionFormController implements Initializable {
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 		
-		if(fields.contains("pergunta")) {
-			labelErrorName.setText(errors.get("pergunta"));
+		if(fields.contains("alternativa")) {
+			labelErrorName.setText(errors.get("alternativa"));
 		}
 	}
 
