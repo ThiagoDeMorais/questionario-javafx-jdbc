@@ -35,7 +35,7 @@ public class AlternativeFormController implements Initializable {
 
 	private Alternative entity;
 
-	private AlternativeService service;
+	private AlternativeService alternativeService;
 
 	private QuestionService questionService;
 
@@ -49,9 +49,15 @@ public class AlternativeFormController implements Initializable {
 
 	@FXML
 	private ComboBox<Question> comboBoxQuestion;
+	
+	@FXML
+	private ComboBox<String> comboBoxIsCorrect;///
 
 	@FXML
-	private Label labelErrorName;
+	private Label labelErrorDescription;
+	
+	@FXML
+	private Label labelErrorIsCorrect;
 
 	@FXML
 	private Button btSave;
@@ -59,14 +65,16 @@ public class AlternativeFormController implements Initializable {
 	@FXML
 	private Button btCancel;
 
-	private ObservableList<Question> obsList;
+	private ObservableList<Question> obsListQuestion;
+	
+	private ObservableList<String> obsListIsCorrect;///
 
 	public void setAlternative(Alternative entity) {
 		this.entity = entity;
 	}
 
-	public void setServices(AlternativeService service, QuestionService questionService) {
-		this.service = service;
+	public void setServices(AlternativeService alternativeService, QuestionService questionService) {
+		this.alternativeService = alternativeService;
 		this.questionService = questionService;
 	}
 
@@ -79,13 +87,14 @@ public class AlternativeFormController implements Initializable {
 		if (entity == null) {
 			throw new IllegalStateException("Entity was null");
 		}
-		if (service == null) {
+		if (alternativeService == null) {
 			throw new IllegalStateException("Service was null");
 		}
 
 		try {
 			entity = getFormData();
-			service.saveOrUpdate(entity);
+			System.out.println(entity.getId());
+			alternativeService.saveOrUpdate(entity);
 			notifyDataChangeListeners();
 			Utils.currentStage(event).close();
 		} catch (DbException e) {
@@ -129,14 +138,14 @@ public class AlternativeFormController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO Auto-generated method stub
-
+		initializaNodes();
 	}
 
 	private void initializaNodes() {
 		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtDescription, 5000);
-		initializeComboBoxDepartment();
+		initializeComboBoxQuestion();
+		initializeComboBoxIsCorrect();///
 
 	}
 
@@ -150,28 +159,38 @@ public class AlternativeFormController implements Initializable {
 			comboBoxQuestion.getSelectionModel().selectFirst();
 		} else {
 			comboBoxQuestion.setValue(entity.getQuestion());
-
 		}
+		
+		if (entity.getIsCorrect() == null) {///
+			comboBoxIsCorrect.getSelectionModel().selectFirst();
+		} else {
+			comboBoxIsCorrect.setValue(entity.getIsCorrect());
+		}
+		comboBoxIsCorrect.setValue(entity.getIsCorrect());
+		
 	}
 
 	public void loadAssociatedObjects() {
 		if (questionService == null) {
 			throw new IllegalStateException("QuestionService was null");
 		}
-		List<Question> list = questionService.findAll();
-		obsList = FXCollections.observableArrayList(list);
-		comboBoxQuestion.setItems(obsList);
+		List<Question> listQuestion = questionService.findAll();
+		obsListQuestion = FXCollections.observableArrayList(listQuestion);
+		comboBoxQuestion.setItems(obsListQuestion);
+		
+		obsListIsCorrect = FXCollections.observableArrayList("V", "F");///
+		comboBoxIsCorrect.setItems(obsListIsCorrect);///
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 
 		if (fields.contains("alternativa")) {
-			labelErrorName.setText(errors.get("alternativa"));
+			labelErrorDescription.setText(errors.get("alternativa"));
 		}
 	}
 
-	private void initializeComboBoxDepartment() {
+	private void initializeComboBoxQuestion() {
 		Callback<ListView<Question>, ListCell<Question>> factory = lv -> new ListCell<Question>() {
 			@Override
 			protected void updateItem(Question item, boolean empty) {
@@ -182,5 +201,21 @@ public class AlternativeFormController implements Initializable {
 		comboBoxQuestion.setCellFactory(factory);
 		comboBoxQuestion.setButtonCell(factory.call(null));
 	}
+	
+	private void initializeComboBoxIsCorrect() {///
+		Callback<ListView<String>, ListCell<String>> factory = lv -> new ListCell<String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? "" : item);
+			}
+		};
+		comboBoxIsCorrect.setCellFactory(factory);
+		comboBoxIsCorrect.setButtonCell(factory.call(null));
+	}
+	
+	
+
+
 
 }

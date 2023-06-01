@@ -46,7 +46,7 @@ public class AlternativeListController implements Initializable, DataChangeListe
 	private TableColumn<Alternative, String> tableColumnDescription;
 	
 	@FXML
-	private TableColumn<Alternative, Boolean> tableColumnIsCorrect;
+	private TableColumn<Alternative, String> tableColumnIsCorrect;
 
 	@FXML
 	private TableColumn<Alternative, Alternative> tableColumnEDIT;
@@ -58,6 +58,7 @@ public class AlternativeListController implements Initializable, DataChangeListe
 	private Button btNew;
 
 	private ObservableList<Alternative> obsList;
+	
 
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
