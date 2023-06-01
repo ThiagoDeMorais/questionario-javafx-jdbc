@@ -23,6 +23,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Callback;
 import model.entities.Alternative;
@@ -45,7 +46,7 @@ public class AlternativeFormController implements Initializable {
 	private TextField txtId;
 
 	@FXML
-	private TextField txtDescription;
+	private TextArea txtDescription;
 
 	@FXML
 	private ComboBox<Question> comboBoxQuestion;
@@ -119,18 +120,22 @@ public class AlternativeFormController implements Initializable {
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
 
 		if (txtDescription.getText() == null || txtDescription.getText().trim().equals("")) {
-			exception.addErrors("alternativa", "O campo alternativa não pode ser vazio");
+			exception.addErrors("alternativa", "O campo vazio");
 		}
 		obj.setDescription(txtDescription.getText());
-
+		
+		if (comboBoxIsCorrect.getValue() == null || comboBoxIsCorrect.getValue().trim().equals("")) {
+			exception.addErrors("isCorrect", "O campo vazio");
+		}
+		
+		obj.setIsCorrect(comboBoxIsCorrect.getValue());
+		
+		obj.setQuestion(comboBoxQuestion.getValue());
+		
 		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
 		
-		obj.setQuestion(comboBoxQuestion.getValue());
-		
-		obj.setIsCorrect(comboBoxIsCorrect.getValue());
-
 		return obj;
 	}
 
@@ -147,7 +152,7 @@ public class AlternativeFormController implements Initializable {
 
 	private void initializaNodes() {
 		Constraints.setTextFieldInteger(txtId);
-		Constraints.setTextFieldMaxLength(txtDescription, 5000);
+		Constraints.setTextAreaMaxLength(txtDescription, 5000);
 		initializeComboBoxQuestion();
 		initializeComboBoxIsCorrect();///
 
@@ -166,11 +171,11 @@ public class AlternativeFormController implements Initializable {
 		}
 		
 		if (entity.getIsCorrect() == null) {///
-			comboBoxIsCorrect.getSelectionModel().selectFirst();
+			System.out.println("Esta nulo");
+			comboBoxIsCorrect.getSelectionModel();
 		} else {
 			comboBoxIsCorrect.setValue(entity.getIsCorrect());
 		}
-		comboBoxIsCorrect.setValue(entity.getIsCorrect());
 		
 	}
 
@@ -189,9 +194,10 @@ public class AlternativeFormController implements Initializable {
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 
-		if (fields.contains("alternativa")) {
-			labelErrorDescription.setText(errors.get("alternativa"));
-		}
+		labelErrorDescription.setText(fields.contains("alternativa") ? errors.get("alternativa") : "" );
+		
+		labelErrorIsCorrect.setText(fields.contains("isCorrect") ? errors.get("isCorrect") : "" );
+
 	}
 
 	private void initializeComboBoxQuestion() {

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="483.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
-      <VBox prefHeight="304.0" prefWidth="480.0">
+      <VBox prefHeight="397.0" prefWidth="480.0">
          <children>
             <MenuBar>
               <menus>
@@ -25,6 +28,14 @@
                 </Menu>
               </menus>
             </MenuBar>
+            <TextArea disable="true" prefHeight="358.0" prefWidth="480.0" text="                  Sistema de Cadastro de Questões&#10;&#10;">
+               <opaqueInsets>
+                  <Insets top="50.0" />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </TextArea>
          </children>
       </VBox>
    </content>

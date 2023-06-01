@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import model.entities.Question;
 import model.exceptions.ValidationException;
@@ -35,7 +36,7 @@ public class QuestionFormController implements Initializable {
 	private TextField txtId;
 	
 	@FXML
-	private TextField txtDescription;
+	private TextArea txtDescription;
 	
 	@FXML
 	private Label labelErrorName;
@@ -95,7 +96,7 @@ public class QuestionFormController implements Initializable {
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
 		
 		if(txtDescription.getText() == null || txtDescription.getText().trim().equals("")) {
-			exception.addErrors("pergunta", "O campo pergunta não pode ser vazio");
+			exception.addErrors("pergunta", "O campo pergunta está campo vazio");
 		}
 		obj.setDescription(txtDescription.getText());
 		
@@ -115,13 +116,12 @@ public class QuestionFormController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO Auto-generated method stub
-		
+		initializaNodes();		
 	}
 	
 	private void initializaNodes() {
 		Constraints.setTextFieldInteger(txtId);
-		Constraints.setTextFieldMaxLength(txtDescription, 5000);
+		Constraints.setTextAreaMaxLength(txtDescription, 5000);
 
 	}
 	
