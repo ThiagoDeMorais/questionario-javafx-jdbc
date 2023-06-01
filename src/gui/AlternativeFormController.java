@@ -126,6 +126,10 @@ public class AlternativeFormController implements Initializable {
 		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
+		
+		obj.setQuestion(comboBoxQuestion.getValue());
+		
+		obj.setIsCorrect(comboBoxIsCorrect.getValue());
 
 		return obj;
 	}
