@@ -107,7 +107,11 @@ public class QuestionFormController implements Initializable {
 		
 		try {
 			entity = getFormData();
+			List<Alternative> list = getAlternatives(entity);
 			service.saveOrUpdate(entity);
+			list.forEach(alternative -> {
+				alternativeService.saveOrUpdate(alternative);
+			});
 			notifyDataChangeListeners();
 			Utils.currentStage(event).close();
 		}catch(DbException e) {
@@ -133,9 +137,10 @@ public class QuestionFormController implements Initializable {
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
 		
 		if(txtDescription.getText() == null || txtDescription.getText().trim().equals("")) {
-			exception.addErrors("pergunta", "O campo pergunta está campo vazio");
+			exception.addErrors("pergunta", "Há um camp campo vazio");
 		}
 		obj.setDescription(txtDescription.getText());
+
 		
 		if(exception.getErrors().size() > 0) {
 			throw exception;
@@ -143,6 +148,73 @@ public class QuestionFormController implements Initializable {
 		
 		return obj;
 	}
+	
+	private List<Alternative> getAlternatives(Question question) {
+		Alternative alternativeObj1 = new Alternative();
+		Alternative alternativeObj2 = new Alternative();
+		Alternative alternativeObj3 = new Alternative();
+		Alternative alternativeObj4 = new Alternative();
+		Alternative alternativeObj5 = new Alternative();
+
+
+		ValidationException exception = new ValidationException("Validation Error");
+		
+		
+		if(txtDescriptionA1== null || txtDescriptionA1.getText().trim().equals("")) {
+			exception.addErrors("alternativa", "Há um camp campo vazio");
+		}
+		alternativeObj1.setId(Utils.tryParseToInt(txtId.getText()));// id group
+		alternativeObj1.setQuestion(question);
+		alternativeObj1.setDescription(txtDescriptionA1.getText());
+		alternativeObj1.setIsCorrect(rButtonA1.isSelected() == true ? "V": "F");
+
+		
+		if(txtDescriptionA2== null || txtDescriptionA2.getText().trim().equals("")) {
+			exception.addErrors("alternativa", "Há um camp campo vazio");
+		}
+		alternativeObj2.setQuestion(question);
+		alternativeObj2.setDescription(txtDescriptionA2.getText());
+		alternativeObj2.setIsCorrect(rButtonA2.isSelected() == true ? "V": "F");
+
+		
+		if(txtDescriptionA3== null || txtDescriptionA3.getText().trim().equals("")) {
+			exception.addErrors("alternativa", "Há um camp campo vazio");
+		}
+		alternativeObj3.setQuestion(question);
+		alternativeObj3.setDescription(txtDescriptionA3.getText());
+		alternativeObj3.setIsCorrect(rButtonA3.isSelected() == true ? "V": "F");
+
+		
+		if(txtDescriptionA4== null || txtDescriptionA4.getText().trim().equals("")) {
+			exception.addErrors("alternativa", "Há um camp campo vazio");
+		}
+		alternativeObj4.setQuestion(question);
+		alternativeObj4.setDescription(txtDescriptionA4.getText());
+		alternativeObj4.setIsCorrect(rButtonA4.isSelected() == true ? "V": "F");
+
+		
+		if(txtDescriptionA5== null || txtDescriptionA5.getText().trim().equals("")) {
+			exception.addErrors("alternativa", "Há um camp campo vazio");
+		}
+		alternativeObj5.setQuestion(question);
+		alternativeObj5.setDescription(txtDescriptionA5.getText());
+		alternativeObj5.setIsCorrect(rButtonA5.isSelected() == true ? "V": "F");
+
+		List<Alternative> list = new ArrayList<>();
+		list.add(alternativeObj1);
+		list.add(alternativeObj2);
+		list.add(alternativeObj3);
+		list.add(alternativeObj4);
+		list.add(alternativeObj5);
+		
+		if(exception.getErrors().size() > 0) {
+			throw exception;
+		}
+		
+		return list;
+	}
+	
+	
 
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
