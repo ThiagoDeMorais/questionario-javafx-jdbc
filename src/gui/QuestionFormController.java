@@ -12,16 +12,20 @@ import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import model.entities.Alternative;
 import model.entities.Question;
 import model.exceptions.ValidationException;
+import model.servicies.AlternativeService;
 import model.servicies.QuestionService;
 
 public class QuestionFormController implements Initializable {
@@ -29,6 +33,8 @@ public class QuestionFormController implements Initializable {
 	private Question entity;
 	
 	private QuestionService service;
+	
+	private AlternativeService alternativeService;
 	
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
@@ -42,6 +48,36 @@ public class QuestionFormController implements Initializable {
 	private Label labelErrorName;
 	
 	@FXML
+	private TextArea txtDescriptionA1;
+	
+	@FXML
+	private TextArea txtDescriptionA2;
+	
+	@FXML
+	private TextArea txtDescriptionA3;
+	
+	@FXML
+	private TextArea txtDescriptionA4;
+	
+	@FXML
+	private TextArea txtDescriptionA5;
+	
+	@FXML
+	private RadioButton rButtonA1;
+	
+	@FXML
+	private RadioButton rButtonA2;
+	
+	@FXML
+	private RadioButton rButtonA3;
+	
+	@FXML
+	private RadioButton rButtonA4;
+	
+	@FXML
+	private RadioButton rButtonA5;
+	
+	@FXML
 	private Button btSave;
 	
 	@FXML
@@ -51,8 +87,9 @@ public class QuestionFormController implements Initializable {
 		this.entity = entity;
 	}
 	
-	public void setQuestionService(QuestionService service) {
+	public void setServices(QuestionService service, AlternativeService alternativeService) {
 		this.service = service;
+		this.alternativeService = alternativeService;
 	}
 	
 	public void subscribeDataChangeListener(DataChangeListener listener) {
@@ -131,6 +168,33 @@ public class QuestionFormController implements Initializable {
 		}
 		txtId.setText(String.valueOf(entity.getId() == null?" ":entity.getId()));
 		txtDescription.setText(entity.getDescription());
+	}
+	
+	public void loadAssociatedObjects() {
+		if (alternativeService == null) {
+			throw new IllegalStateException("QuestionService was null");
+		}
+		
+		TextArea[] txtAlternativeDescriptions = {txtDescriptionA1,
+				txtDescriptionA2,
+				txtDescriptionA3,
+				txtDescriptionA4,
+				txtDescriptionA5};
+		
+		RadioButton[] radioAlternativeButtons = {rButtonA1,
+				rButtonA2,
+				rButtonA3,
+				rButtonA4,
+				rButtonA5};
+		
+		List<Alternative> alternatives = alternativeService.findByQuestion(entity);
+
+		for(int i = 0; i< alternatives.size(); i++) {
+			txtAlternativeDescriptions[i].setText(alternatives.get(i).getDescription());
+			radioAlternativeButtons[i].setSelected((alternatives.get(i).getIsCorrect()) == "V"? true: false);
+			System.out.print(radioAlternativeButtons[i].isSelected());
+		}
+		
 	}
 	
 	private void setErrorMessages(Map<String, String> errors) {

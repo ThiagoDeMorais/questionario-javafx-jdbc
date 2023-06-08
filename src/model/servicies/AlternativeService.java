@@ -5,6 +5,7 @@ import java.util.List;
 import model.dao.DaoFactory;
 import model.dao.AlternativeDao;
 import model.entities.Alternative;
+import model.entities.Question;
 
 public class AlternativeService {
 
@@ -24,5 +25,13 @@ public class AlternativeService {
 	
 	public void remove(Alternative obj) {
 		dao.deleteById(obj.getId());
+	}
+	
+	public Alternative findById(Integer id) {
+		return dao.findById(id);
+	}
+	
+	public List<Alternative> findByQuestion(Question question) {
+		return dao.findByQuestion(question);
 	}
 }

@@ -30,6 +30,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Question;
+import model.servicies.AlternativeService;
 import model.servicies.QuestionService;
 
 public class QuestionListController implements Initializable, DataChangeListener {
@@ -99,7 +100,8 @@ public class QuestionListController implements Initializable, DataChangeListener
 
 			QuestionFormController controller = loader.getController();
 			controller.setQuestion(obj);
-			controller.setQuestionService(new QuestionService());
+			controller.setServices(new QuestionService(), new AlternativeService());
+			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 

@@ -165,7 +165,7 @@ public class AlternativeFormController implements Initializable {
 		txtId.setText(String.valueOf(entity.getId() == null ? " " : entity.getId()));
 		txtDescription.setText(entity.getDescription());
 		if (entity.getQuestion() == null) {
-			comboBoxQuestion.getSelectionModel().selectFirst();
+			comboBoxQuestion.getSelectionModel();
 		} else {
 			comboBoxQuestion.setValue(entity.getQuestion());
 		}

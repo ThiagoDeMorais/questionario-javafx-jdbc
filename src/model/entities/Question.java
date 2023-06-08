@@ -58,7 +58,7 @@ public class Question implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Questao [id=" + id + ", enunciado=" + description + "]";
+		return "Questao " +  id;
 	}
 	
 	

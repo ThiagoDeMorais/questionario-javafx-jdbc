@@ -53,6 +53,9 @@ public class AlternativeListController implements Initializable, DataChangeListe
 
 	@FXML
 	private TableColumn<Alternative, Alternative> tableColumnREMOVE;
+	
+	@FXML
+	private TableColumn<Alternative, Integer> tableColumnIdQuestion;
 
 	@FXML
 	private Button btNew;
@@ -80,7 +83,7 @@ public class AlternativeListController implements Initializable, DataChangeListe
 		tableColumnId.setCellValueFactory((new PropertyValueFactory<>("id")));
 		tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		tableColumnIsCorrect.setCellValueFactory(new PropertyValueFactory<>("isCorrect"));
-
+		tableColumnIdQuestion.setCellValueFactory( new PropertyValueFactory<>("Question"));;
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewAlternative.prefHeightProperty().bind(stage.heightProperty());
 	}

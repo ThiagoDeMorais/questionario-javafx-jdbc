@@ -29,7 +29,8 @@
           <TableColumn fx:id="tableColumnId" prefWidth="94.0" text="id" />
           <TableColumn fx:id="tableColumnDescription" prefWidth="103.0" text="descricao" />
             <TableColumn fx:id="tableColumnIsCorrect" prefWidth="81.0" text="Correta" />
-            <TableColumn fx:id="tableColumnEDIT" prefWidth="85.0" />
+            <TableColumn fx:id="tableColumnIdQuestion" prefWidth="130.0" text="id_questao" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="30.0" />
             <TableColumn fx:id="tableColumnREMOVE" prefWidth="105.0" />
         </columns>
       </TableView>
