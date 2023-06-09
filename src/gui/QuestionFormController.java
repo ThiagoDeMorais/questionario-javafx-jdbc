@@ -123,11 +123,9 @@ public class QuestionFormController implements Initializable {
 		try {
 			entity = getFormData();
 			List<Alternative> list = getAlternatives(entity);
-			System.out.println(list);
 			service.saveOrUpdate(entity);
 			list.forEach(alternative -> {
 				alternativeService.saveOrUpdate(alternative);
-				System.out.println(alternative);
 			});
 			notifyDataChangeListeners();
 			Utils.currentStage(event).close();
@@ -221,7 +219,6 @@ public class QuestionFormController implements Initializable {
 		list.add(alternativeObj4);
 		list.add(alternativeObj5);
 		
-		System.out.println(list);
 
 		if (exception.getErrors().size() > 0) {
 			throw exception;
@@ -232,7 +229,6 @@ public class QuestionFormController implements Initializable {
 
 	@FXML
 	public void onBtCancelAction(ActionEvent event) {
-		System.out.println("onBtCancelction");
 		Utils.currentStage(event).close();
 	}
 
@@ -272,7 +268,7 @@ public class QuestionFormController implements Initializable {
 
 		for (int i = 0; i < alternatives.size(); i++) {
 			txtAlternativeDescriptions[i].setText(alternatives.get(i).getDescription());
-			radioAlternativeButtons[i].setSelected((alternatives.get(i).getIsCorrect()) == "V" ? true : false);
+			radioAlternativeButtons[i].setSelected((alternatives.get(i).getIsCorrect()).equals("V")  ? true : false);	
 			txAlternativestId[i].setText(String.valueOf(alternatives.get(i).getId() == null ? " ": alternatives.get(i).getId() ));
 		}
 
