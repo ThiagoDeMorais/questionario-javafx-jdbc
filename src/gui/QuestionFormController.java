@@ -30,9 +30,9 @@ import model.servicies.QuestionService;
 
 public class QuestionFormController implements Initializable {
 
-	private Question entity;
+	private Question questionEntity;
 
-	private QuestionService service;
+	private QuestionService questionService;
 
 	private AlternativeService alternativeService;
 
@@ -99,11 +99,11 @@ public class QuestionFormController implements Initializable {
 	private Button btCancel;
 
 	public void setQuestion(Question entity) {
-		this.entity = entity;
+		this.questionEntity = entity;
 	}
 
 	public void setServices(QuestionService service, AlternativeService alternativeService) {
-		this.service = service;
+		this.questionService = service;
 		this.alternativeService = alternativeService;
 	}
 
@@ -113,17 +113,17 @@ public class QuestionFormController implements Initializable {
 
 	@FXML
 	public void onBtSaveAction(ActionEvent event) {
-		if (entity == null) {
+		if (questionEntity == null) {
 			throw new IllegalStateException("Entity was null");
 		}
-		if (service == null) {
+		if (questionService == null) {
 			throw new IllegalStateException("Service was null");
 		}
 
 		try {
-			entity = getFormData();
-			List<Alternative> list = getAlternatives(entity);
-			service.saveOrUpdate(entity);
+			questionEntity = getFormData();
+			List<Alternative> list = getAlternatives(questionEntity);
+			questionService.saveOrUpdate(questionEntity);
 			list.forEach(alternative -> {
 				alternativeService.saveOrUpdate(alternative);
 			});
@@ -244,11 +244,11 @@ public class QuestionFormController implements Initializable {
 	}
 
 	public void updateFormData() {
-		if (entity == null) {
+		if (questionEntity == null) {
 			throw new IllegalStateException("Entity was null");
 		}
-		txtId.setText(String.valueOf(entity.getId() == null ? " " : entity.getId()));
-		txtDescription.setText(entity.getDescription());
+		txtId.setText(String.valueOf(questionEntity.getId() == null ? " " : questionEntity.getId()));
+		txtDescription.setText(questionEntity.getDescription());
 	}
 
 	public void loadAssociatedObjects() {
@@ -264,7 +264,7 @@ public class QuestionFormController implements Initializable {
 			throw new IllegalStateException("Service was null");
 		}
 
-		List<Alternative> alternatives = alternativeService.findByQuestion(entity.getId());
+		List<Alternative> alternatives = alternativeService.findByQuestion(questionEntity.getId());
 
 		for (int i = 0; i < alternatives.size(); i++) {
 			txtAlternativeDescriptions[i].setText(alternatives.get(i).getDescription());

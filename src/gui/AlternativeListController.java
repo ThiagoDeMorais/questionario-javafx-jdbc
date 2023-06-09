@@ -57,18 +57,9 @@ public class AlternativeListController implements Initializable, DataChangeListe
 	@FXML
 	private TableColumn<Alternative, Integer> tableColumnIdQuestion;
 
-	@FXML
-	private Button btNew;
 
 	private ObservableList<Alternative> obsList;
 	
-
-	@FXML
-	public void onBtNewAction(ActionEvent event) {
-		Stage parentStage = Utils.currentStage(event);
-		Alternative obj = new Alternative();
-		createDialogForm(obj, "/gui/AlternativeForm.fxml", parentStage);
-	}
 
 	public void setAlternativeService(AlternativeService service) {
 		this.service = service;
@@ -96,35 +87,8 @@ public class AlternativeListController implements Initializable, DataChangeListe
 		List<Alternative> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewAlternative.setItems(obsList);
-		initEditButtons();
-		initRemoveButtons();
 
-	}
 
-	private void createDialogForm(Alternative obj, String absoluteName, Stage parentStage) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			Pane pane = loader.load();
-
-			AlternativeFormController controller = loader.getController();
-			controller.setAlternative(obj);
-			controller.setServices(new AlternativeService(), new QuestionService());
-			controller.loadAssociatedObjects();
-			controller.subscribeDataChangeListener(this);
-			controller.updateFormData();
-
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Entre com o conteúdo da alternativa");
-			dialogStage.setScene(new Scene(pane));
-			dialogStage.setResizable(false);
-			dialogStage.initOwner(parentStage);
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.showAndWait();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
-		}
 	}
 
 	@Override
@@ -132,55 +96,4 @@ public class AlternativeListController implements Initializable, DataChangeListe
 		updateTableView();
 	}
 
-	private void initEditButtons() {
-		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEDIT.setCellFactory(param -> new TableCell<Alternative, Alternative>() {
-			private final Button button = new Button("edit");
-
-			@Override
-			protected void updateItem(Alternative obj, boolean empty) {
-				super.updateItem(obj, empty);
-				if (obj == null) {
-					setGraphic(null);
-					return;
-				}
-				setGraphic(button);
-				button.setOnAction(event -> createDialogForm(obj, "/gui/AlternativeForm.fxml", Utils.currentStage(event)));
-			}
-		});
-	}
-
-	private void initRemoveButtons() {
-		tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnREMOVE.setCellFactory(param -> new TableCell<Alternative, Alternative>() {
-			private final Button button = new Button("remove");
-
-			@Override
-			protected void updateItem(Alternative obj, boolean empty) {
-				super.updateItem(obj, empty);
-				if (obj == null) {
-					setGraphic(null);
-					return;
-				}
-				setGraphic(button);
-				button.setOnAction(event -> removeEntity(obj));
-			}
-		});
-	}
-
-	private void removeEntity(Alternative obj) {
-		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Tem certeza que deseja deletar?");
-		
-		if(result.get() == ButtonType.OK) {
-			if(service == null) {
-				throw new IllegalStateException("Service was null");
-			}
-			try {
-				service.remove(obj);
-				updateTableView();
-			}catch(DbException e) {
-				Alerts.showAlert("Error removing object", null, e.getMessage(), AlertType.ERROR);
-			}
-		}
-	}
 }

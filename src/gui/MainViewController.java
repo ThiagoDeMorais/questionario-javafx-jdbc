@@ -42,6 +42,7 @@ public class MainViewController implements Initializable {
 	public void onMenuItemQuestionAction() {
 		loadView("/gui/QuestionList.fxml", (QuestionListController controller) -> {
 			controller.setQuestionService(new QuestionService());
+			controller.setAlternativeService(new AlternativeService());
 			controller.updateTableView();
 		});
 

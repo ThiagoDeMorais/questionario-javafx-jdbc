@@ -34,7 +34,9 @@ import model.servicies.AlternativeService;
 import model.servicies.QuestionService;
 
 public class QuestionListController implements Initializable, DataChangeListener {
-	private QuestionService service;
+	private QuestionService questionService;
+
+	private AlternativeService alternativeService;
 
 	@FXML
 	private TableView<Question> tableViewQuestion;
@@ -58,13 +60,22 @@ public class QuestionListController implements Initializable, DataChangeListener
 
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
+		System.out.println("onBtNewAction i" + questionService);
 		Stage parentStage = Utils.currentStage(event);
 		Question obj = new Question();
 		createDialogForm(obj, "/gui/QuestionForm.fxml", parentStage);
+		System.out.println("onBtNewAction f" + questionService);
+
 	}
 
-	public void setQuestionService(QuestionService service) {
-		this.service = service;
+	public void setQuestionService(QuestionService questionService) {
+		System.out.println("setQuestionService i" + questionService);
+		this.questionService = questionService;
+		System.out.println("setQuestionService f" + questionService);
+	}
+	
+	public void setAlternativeService(AlternativeService alternativeService) {
+		this.alternativeService = alternativeService;
 	}
 
 	@Override
@@ -81,11 +92,11 @@ public class QuestionListController implements Initializable, DataChangeListener
 	}
 
 	public void updateTableView() {
-		if (service == null) {
+		if (questionService == null) {
 			throw new IllegalStateException("Serviço nulo");
 		}
 
-		List<Question> list = service.findAll();
+		List<Question> list = questionService.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewQuestion.setItems(obsList);
 		initEditButtons();
@@ -155,24 +166,59 @@ public class QuestionListController implements Initializable, DataChangeListener
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> removeEntity(obj));
+				button.setOnAction(event -> removeQuestionEntity(obj));
 			}
 		});
 	}
 
-	private void removeEntity(Question obj) {
+	private void removeQuestionEntity(Question obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Tem certeza que deseja deletar?");
-		
-		if(result.get() == ButtonType.OK) {
-			if(service == null) {
+
+		if (result.get() == ButtonType.OK) {
+			System.out.println(questionService);
+			if (questionService == null) {
 				throw new IllegalStateException("Service was null");
 			}
+			removeAlternativesEntity(obj);
 			try {
-				service.remove(obj);
+				questionService.remove(obj);
 				updateTableView();
-			}catch(DbException e) {
+			} catch (DbException e) {
 				Alerts.showAlert("Error removing object", null, e.getMessage(), AlertType.ERROR);
 			}
 		}
 	}
+
+	private void removeAlternativesEntity(Question obj) {
+
+		if (alternativeService == null) {
+			System.out.println(alternativeService);
+			throw new IllegalStateException("Service was null");
+		}
+		try {
+			(alternativeService.findByQuestion(obj.getId())).forEach(alternative -> {
+				System.out.println(alternative);
+				alternativeService.remove(alternative);
+			});;
+		} catch (DbException e) {
+			Alerts.showAlert("Error removing object", null, e.getMessage(), AlertType.ERROR);
+		}
+
+	}
+
+//	private void removeEntity(Alternative obj) {
+//		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Tem certeza que deseja deletar?");
+//		
+//		if(result.get() == ButtonType.OK) {
+//			if(questionService == null) {
+//				throw new IllegalStateException("Service was null");
+//			}
+//			try {
+//				questionService.remove(obj);
+//				updateTableView();
+//			}catch(DbException e) {
+//				Alerts.showAlert("Error removing object", null, e.getMessage(), AlertType.ERROR);
+//			}
+//		}
+//	}
 }
