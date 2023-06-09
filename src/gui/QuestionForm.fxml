@@ -142,6 +142,11 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <TextField fx:id="txtIdA1" editable="false" maxWidth="50.0" GridPane.rowIndex="3" />
+            <TextField fx:id="txtIdA2" editable="false" maxWidth="50.0" GridPane.rowIndex="4" />
+            <TextField fx:id="txtIdA3" editable="false" maxWidth="50.0" GridPane.rowIndex="5" />
+            <TextField fx:id="txtIdA4" editable="false" maxWidth="50.0" GridPane.rowIndex="6" />
+            <TextField fx:id="txtIdA5" editable="false" maxWidth="50.0" GridPane.rowIndex="7" />
          </children>
       </GridPane>
    </children>

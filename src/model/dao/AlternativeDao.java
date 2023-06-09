@@ -11,5 +11,5 @@ public interface AlternativeDao {
 	void deleteById(Integer id);
 	Alternative findById(Integer id);
 	List<Alternative> findAll();
-	List<Alternative> findByQuestion(Question question);
+	List<Alternative> findByQuestion(Integer id_question);
 }

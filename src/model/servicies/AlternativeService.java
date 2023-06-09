@@ -31,7 +31,7 @@ public class AlternativeService {
 		return dao.findById(id);
 	}
 	
-	public List<Alternative> findByQuestion(Question question) {
-		return dao.findByQuestion(question);
+	public List<Alternative> findByQuestion(Integer id_question) {
+		return dao.findByQuestion(id_question);
 	}
 }

@@ -173,39 +173,44 @@ public class AlternativeDaoJDBC implements AlternativeDao {
 	}
 
 	@Override
-	public List<Alternative> findByQuestion(Question question) {
+	public List<Alternative> findByQuestion(Integer id_question) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		try {
-			st = conn.prepareStatement("SELECT alternative.*,question.description as description\r\n"
-					+ "FROM alternative INNER JOIN question\r\n" + "ON alternative.id_question = question.id\r\n"
-					+ "WHERE id_question = ?\r\n" + "ORDER BY id");
 
-			st.setInt(1, question.getId());
+		if (id_question != null) {
+			try {
+				st = conn.prepareStatement(
+						"SELECT * FROM alternative INNER JOIN question ON alternative.id_question = question.id WHERE id_question = ? ORDER BY question.id;");
 
-			rs = st.executeQuery();
+				if (st != null) {
+					st.setInt(1, id_question);
 
-			List<Alternative> list = new ArrayList<>();
-			Map<Integer, Question> map = new HashMap<>();
+					rs = st.executeQuery();
 
-			while (rs.next()) {
-				Question per = map.get(rs.getInt("id_question"));
+					List<Alternative> list = new ArrayList<>();
+					Map<Integer, Question> map = new HashMap<>();
 
-				if (per == null) {
-					per = instantiateQuestion(rs);
-					map.put(rs.getInt("id_question"), per);
+					while (rs.next()) {
+						Question per = map.get(rs.getInt("id_question"));
+
+						if (per == null) {
+							per = instantiateQuestion(rs);
+							map.put(rs.getInt("id_question"), per);
+						}
+
+						Alternative obj = instantiateAlternative(rs, per);
+						list.add(obj);
+					}
+					return list;
 				}
-
-				Alternative obj = instantiateAlternative(rs, per);
-				list.add(obj);
+				return null;
+			} catch (SQLException e) {
+				throw new DbException(e.getMessage());
+			} finally {
+				DB.closeStatement(st);
+				DB.closeResultSet(rs);
 			}
-			return list;
-		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
-		} finally {
-			DB.closeStatement(st);
-			DB.closeResultSet(rs);
 		}
+		return new ArrayList<>(); 
 	}
-
 }
