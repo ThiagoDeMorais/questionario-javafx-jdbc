@@ -44,7 +44,7 @@
                <children>
                   <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" />
                   <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancelar" />
-                  <Label fx:id="labelErrorName" prefHeight="27.0" prefWidth="384.0" textFill="#f20000">
+                  <Label fx:id="labelError" prefHeight="27.0" prefWidth="384.0" textFill="#f20000">
                      <HBox.margin>
                         <Insets top="7.0" />
                      </HBox.margin>
@@ -142,11 +142,11 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtIdA1" editable="false" maxWidth="50.0" GridPane.rowIndex="3" />
-            <TextField fx:id="txtIdA2" editable="false" maxWidth="50.0" GridPane.rowIndex="4" />
-            <TextField fx:id="txtIdA3" editable="false" maxWidth="50.0" GridPane.rowIndex="5" />
-            <TextField fx:id="txtIdA4" editable="false" maxWidth="50.0" GridPane.rowIndex="6" />
-            <TextField fx:id="txtIdA5" editable="false" maxWidth="50.0" GridPane.rowIndex="7" />
+            <TextField fx:id="txtIdA1" editable="false" maxWidth="50.0" visible="false" GridPane.rowIndex="3" />
+            <TextField fx:id="txtIdA2" editable="false" maxWidth="50.0" visible="false" GridPane.rowIndex="4" />
+            <TextField fx:id="txtIdA3" editable="false" maxWidth="50.0" visible="false" GridPane.rowIndex="5" />
+            <TextField fx:id="txtIdA4" editable="false" maxWidth="50.0" visible="false" GridPane.rowIndex="6" />
+            <TextField fx:id="txtIdA5" editable="false" maxWidth="50.0" visible="false" GridPane.rowIndex="7" />
          </children>
       </GridPane>
    </children>

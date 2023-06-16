@@ -45,7 +45,7 @@ public class QuestionFormController implements Initializable {
 	private TextArea txtDescription;
 
 	@FXML
-	private Label labelErrorName;
+	private Label labelError;
 
 	@FXML
 	private TextArea txtDescriptionA1;
@@ -151,7 +151,7 @@ public class QuestionFormController implements Initializable {
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
 
 		if (txtDescription.getText() == null || txtDescription.getText().trim().equals("")) {
-			exception.addErrors("pergunta", "Há um camp campo vazio");
+			exception.addErrors("pergunta", "O campo Pergunta deve ser preenchido");
 		}
 		obj.setDescription(txtDescription.getText());
 
@@ -173,15 +173,16 @@ public class QuestionFormController implements Initializable {
 
 		alternativeObj1.setId(Utils.tryParseToInt(txtIdA1.getText()));// id group
 		if (txtDescriptionA1 == null || txtDescriptionA1.getText().trim().equals("")) {
-			exception.addErrors("alternativa", "Há um camp campo vazio");
+			exception.addErrors("alternativa", "Todas alternativas devem ser preenchidas");
 		}
+
 		alternativeObj1.setQuestion(question);
 		alternativeObj1.setDescription(txtDescriptionA1.getText());
 		alternativeObj1.setIsCorrect(rButtonA1.isSelected() == true ? "V" : "F");
 
 		alternativeObj2.setId(Utils.tryParseToInt(txtIdA2.getText()));// id group
 		if (txtDescriptionA2 == null || txtDescriptionA2.getText().trim().equals("")) {
-			exception.addErrors("alternativa", "Há um camp campo vazio");
+			exception.addErrors("alternativa", "Todas alternativas devem ser preenchidas");
 		}
 		alternativeObj2.setQuestion(question);
 		alternativeObj2.setDescription(txtDescriptionA2.getText());
@@ -189,7 +190,7 @@ public class QuestionFormController implements Initializable {
 
 		alternativeObj3.setId(Utils.tryParseToInt(txtIdA3.getText()));// id group
 		if (txtDescriptionA3 == null || txtDescriptionA3.getText().trim().equals("")) {
-			exception.addErrors("alternativa", "Há um camp campo vazio");
+			exception.addErrors("alternativa", "Todas alternativas devem ser preenchidas");
 		}
 		alternativeObj3.setQuestion(question);
 		alternativeObj3.setDescription(txtDescriptionA3.getText());
@@ -198,7 +199,7 @@ public class QuestionFormController implements Initializable {
 
 		alternativeObj4.setId(Utils.tryParseToInt(txtIdA4.getText()));// id group
 		if (txtDescriptionA4 == null || txtDescriptionA4.getText().trim().equals("")) {
-			exception.addErrors("alternativa", "Há um camp campo vazio");
+			exception.addErrors("alternativa", "Todas alternativas devem ser preenchidas");
 		}
 		alternativeObj4.setQuestion(question);
 		alternativeObj4.setDescription(txtDescriptionA4.getText());
@@ -206,8 +207,13 @@ public class QuestionFormController implements Initializable {
 
 		alternativeObj5.setId(Utils.tryParseToInt(txtIdA5.getText()));// id group
 		if (txtDescriptionA5 == null || txtDescriptionA5.getText().trim().equals("")) {
-			exception.addErrors("alternativa", "Há um camp campo vazio");
+			exception.addErrors("alternativa", "Todas alternativas devem ser preenchidas");
 		}
+		
+		if(rButtonA1.getToggleGroup().getSelectedToggle() == null) {
+			exception.addErrors("status", "Uma das perguntas deve ser verdadeira");
+		}
+		
 		alternativeObj5.setQuestion(question);
 		alternativeObj5.setDescription(txtDescriptionA5.getText());
 		alternativeObj5.setIsCorrect(rButtonA5.isSelected() == true ? "V" : "F");
@@ -219,7 +225,6 @@ public class QuestionFormController implements Initializable {
 		list.add(alternativeObj4);
 		list.add(alternativeObj5);
 		
-
 		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
@@ -277,8 +282,16 @@ public class QuestionFormController implements Initializable {
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 
+		if (fields.contains("status")) {
+			labelError.setText(errors.get("status"));
+		}
+		
 		if (fields.contains("pergunta")) {
-			labelErrorName.setText(errors.get("pergunta"));
+			labelError.setText(errors.get("pergunta"));
+		}
+		
+		if (fields.contains("alternativa")) {
+			labelError.setText(errors.get("alternativa"));
 		}
 	}
 

@@ -10,7 +10,7 @@
 
 <VBox prefHeight="412.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AlternativeListController">
    <children>
-      <Label text="Registro de alternativas">
+      <Label text="Lista de alternativas">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -22,9 +22,9 @@
       <TableView fx:id="tableViewAlternative" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="94.0" text="id" />
-          <TableColumn fx:id="tableColumnDescription" prefWidth="103.0" text="descricao" />
-            <TableColumn fx:id="tableColumnIsCorrect" prefWidth="81.0" text="Correta" />
-            <TableColumn fx:id="tableColumnIdQuestion" prefWidth="130.0" text="id_questao" />
+          <TableColumn fx:id="tableColumnDescription" prefWidth="103.0" text="descricão" />
+            <TableColumn fx:id="tableColumnIsCorrect" prefWidth="81.0" text="status" />
+            <TableColumn fx:id="tableColumnIdQuestion" prefWidth="130.0" text="id_questão" />
             <TableColumn fx:id="tableColumnEDIT" prefWidth="30.0" />
             <TableColumn fx:id="tableColumnREMOVE" prefWidth="105.0" />
         </columns>

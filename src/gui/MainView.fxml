@@ -16,7 +16,7 @@
          <children>
             <MenuBar style="-fx-background-color: #ebe7dd;">
               <menus>
-                <Menu mnemonicParsing="false" style="-fx-background-color: gray; -fx-padding: 15;" text="Registro">
+                <Menu mnemonicParsing="false" style="-fx-background-color: gray; -fx-padding: 15;" text="Menu">
                   <items>
                     <MenuItem fx:id="menuItemAlternative" mnemonicParsing="false" onAction="#onMenuItemAlternativeAction" style="-fx-background-color: #e4e1a7; -fx-padding: 10;" text="Alternativa" />
                         <MenuItem fx:id="menuItemQuestion" mnemonicParsing="false" onAction="#onMenuItemQuestionAction" style="-fx-background-color: #e4e1a7; -fx-padding: 10;" text="Pergunta" />

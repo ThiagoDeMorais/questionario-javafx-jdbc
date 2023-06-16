@@ -60,18 +60,14 @@ public class QuestionListController implements Initializable, DataChangeListener
 
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
-		System.out.println("onBtNewAction i" + questionService);
 		Stage parentStage = Utils.currentStage(event);
 		Question obj = new Question();
 		createDialogForm(obj, "/gui/QuestionForm.fxml", parentStage);
-		System.out.println("onBtNewAction f" + questionService);
 
 	}
 
 	public void setQuestionService(QuestionService questionService) {
-		System.out.println("setQuestionService i" + questionService);
 		this.questionService = questionService;
-		System.out.println("setQuestionService f" + questionService);
 	}
 	
 	public void setAlternativeService(AlternativeService alternativeService) {
@@ -175,7 +171,6 @@ public class QuestionListController implements Initializable, DataChangeListener
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Tem certeza que deseja deletar?");
 
 		if (result.get() == ButtonType.OK) {
-			System.out.println(questionService);
 			if (questionService == null) {
 				throw new IllegalStateException("Service was null");
 			}
@@ -192,12 +187,10 @@ public class QuestionListController implements Initializable, DataChangeListener
 	private void removeAlternativesEntity(Question obj) {
 
 		if (alternativeService == null) {
-			System.out.println(alternativeService);
 			throw new IllegalStateException("Service was null");
 		}
 		try {
 			(alternativeService.findByQuestion(obj.getId())).forEach(alternative -> {
-				System.out.println(alternative);
 				alternativeService.remove(alternative);
 			});;
 		} catch (DbException e) {
